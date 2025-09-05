@@ -1,0 +1,8 @@
+[package]
+name = "neuron"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+coheron = {path = "../../../coheron"}
+rand = "0.9.2"
