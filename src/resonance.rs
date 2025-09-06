@@ -1,4 +1,5 @@
 use crate::traits::ResonanceField;
+use crate::wavelet::FusionContext;
 
 #[derive(Debug, Clone)]
 pub struct Resonance {
@@ -57,6 +58,21 @@ impl ResonanceField for GridField {
         let delta = influence.amplitude * 0.01;
 
         self.coherence_map[y][x] += delta;
+    }
+
+    fn signal(&self) -> &[f64] {
+        // Flatten the 2D coherence_map into a 1D slice for signal
+        // This is a simple implementation; you may want to adjust as needed
+        // For now, return the first row as a slice
+        self.coherence_map.get(0).map(|row| row.as_slice()).unwrap_or(&[])
+    }
+
+    fn domain_label(&self) -> &str {
+        "GridField"
+    }
+
+    fn fusion_context(&self) -> crate::wavelet::FusionContext {
+        crate::wavelet::FusionContext::default()
     }
 }
 

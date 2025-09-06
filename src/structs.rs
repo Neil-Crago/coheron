@@ -3,11 +3,6 @@ pub struct SemanticState {
     pub phase: f64,
 }
 
-pub struct Observation {
-    pub signal: f64,
-    pub noise: f64,
-}
-
 
 pub struct ControlLaw {
     pub torque: f64,

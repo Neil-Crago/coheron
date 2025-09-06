@@ -60,8 +60,26 @@ My immediate and only priority is to create the first concrete, end-to-end imple
 3.  **[ ] Define `ControlLaw` & `apply_control`**: Decide on the structure of the `ControlLaw` (e.g., a struct containing polynomial coefficients). Implement the `apply_control` logic in `SemanticEngine` to update the `position`.
 4.  **[ ] Design the `LawSynthEngine`**: This is the **main task**. I need to create the first version of the core algorithm that takes a belief distribution and a resonance state and synthesizes a stable `ControlLaw`.
 
+---
+
 ### ### Phase 2: Explore the Constrained Model (Route 2)
-*(Locked until Phase 1 is functional)*
+
+### curvature_signal.rs
+- Holds raw curvature data and reconstruction logic
+- Will support sparse sampling, Lomb-Scargle-like frequency estimation (or placeholder)
+- Will expose a method like fn reconstruct(&self) -> Vec<f64>
+
+### hotspot_detector.rs
+- Detects high-curvature zones (semantic attractors)
+- Uses percentile-based thresholding
+- Exposes fn detect(&self, signal: &[f64]) -> Vec<usize>
+
+### path_evaluator.rs
+- Computes semantic path length vs. Manhattan distance
+- Encodes curvature into trajectory
+- Exposes fn evaluate(&self, signal: &[f64]) -> PathMetrics
+
+---
 
 This involves using the QFT-style constraints as informative priors within the Bayesian `BeliefTensor` itself.
 

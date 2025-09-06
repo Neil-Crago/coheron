@@ -1,9 +1,9 @@
-use crate::beliefs::GaussianBelief;
+use crate::beliefs::{GaussianBelief, Observation};
 use crate::coherence::CoherencePulse;
 use crate::entangle::{SemanticDomain, SimpleEntangleMap};
 use crate::fusion::{BeliefFusion, FusionStrategy};
 use crate::resonance::Resonance;
-use crate::structs::{ControlLaw, Observation};
+use crate::structs::{ControlLaw};
 use crate::traits::{BeliefTensor, EntangleMap, LawSynthEngine, ResonanceField};
 
 pub struct SemanticEngine<B, F, E, S, BF>
@@ -180,6 +180,20 @@ impl ResonanceField for Field {
 
     fn propagate(&mut self, _position: &Self::Position, _influence: &Self::Resonance) {
         // Placeholder: could update field state
+    }
+
+    fn signal(&self) -> &[f64] {
+        // Dummy implementation: return a static slice
+        static SIGNAL: [f64; 2] = [0.0, 0.0];
+        &SIGNAL
+    }
+
+    fn domain_label(&self) -> &str {
+        "Field"
+    }
+
+    fn fusion_context(&self) -> crate::wavelet::FusionContext {
+        crate::wavelet::FusionContext::default()
     }
 }
 

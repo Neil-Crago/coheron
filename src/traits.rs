@@ -1,3 +1,7 @@
+use crate::wavelet::{
+    FusionContext, WaveletBasis, WaveletDecomposition, WaveletEngine, WaveletFusionStrategy,
+};
+
 pub trait BeliefTensor {
     type State;
     type Observation;
@@ -22,8 +26,39 @@ pub trait ResonanceField {
     fn observe(&self, position: &Self::Position) -> Self::Gradient;
     fn compute_resonance(&self, position: &Self::Position) -> Self::Resonance;
     fn propagate(&mut self, position: &Self::Position, influence: &Self::Resonance);
+
+    /// Returns the raw signal representing the resonance field.
+    fn signal(&self) -> &[f64];
+
+    /// Returns the semantic domain label (e.g. "quantum", "biological").
+    fn domain_label(&self) -> &str;
+
+    /// Returns the fusion context for spectral analysis.
+    fn fusion_context(&self) -> FusionContext;
+
+    /// Performs wavelet fusion and returns the fused decomposition.
+    fn fused_spectrum<F: WaveletFusionStrategy>(
+        &self,
+        engine: &WaveletEngine<F>,
+        level: usize,
+    ) -> WaveletDecomposition {
+        engine.fuse(self.signal(), &self.fusion_context(), level)
+    }
+
+    /// Optionally returns the dominant basis for this field.
+    fn dominant_basis<F: WaveletFusionStrategy>(
+        &self,
+        engine: &WaveletEngine<F>,
+    ) -> Option<WaveletBasis> {
+        engine
+            .score_bases(self.signal(), &self.fusion_context())
+            .into_iter()
+            .max_by(|a, b| a.1.partial_cmp(&b.1).unwrap())
+            .map(|(basis, _)| basis)
+    }
 }
 
+/// Trait for entangling different semantic domains.
 pub trait EntangleMap {
     type Domain;
     type Coupling;
@@ -61,3 +96,4 @@ where
 {
     fn trigger(&mut self, belief: &mut B, entanglement: &mut E);
 }
+
