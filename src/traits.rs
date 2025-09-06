@@ -7,6 +7,7 @@ pub trait BeliefTensor {
     fn prior(&self) -> Self::Posterior;
     fn update(&mut self, observation: &Self::Observation);
     fn entropy(&self) -> f64;
+    fn mean(&self) -> f64;
 }
 
 pub trait GradientToObservation<G, O> {
@@ -29,10 +30,13 @@ pub trait EntangleMap {
 
     fn new() -> Self;
     fn get_coupling(&self, domain_a: &Self::Domain, domain_b: &Self::Domain) -> Self::Coupling;
-    fn update_coupling(&mut self, domain_a: &Self::Domain, domain_b: &Self::Domain, delta: Self::Coupling);
+    fn update_coupling(
+        &mut self,
+        domain_a: &Self::Domain,
+        domain_b: &Self::Domain,
+        delta: Self::Coupling,
+    );
 }
-
-
 
 pub trait LawSynthEngine<B, R, E>
 where
@@ -42,7 +46,12 @@ where
 {
     type ControlLaw;
 
-    fn synthesize(&self, belief: &B::Posterior, resonance: &R::Resonance, entanglement: &E) -> Self::ControlLaw;
+    fn synthesize(
+        &self,
+        belief: &B::Posterior,
+        resonance: &R::Resonance,
+        entanglement: &E,
+    ) -> Self::ControlLaw;
 }
 
 pub trait CoherencePulse<B, E>

@@ -1,5 +1,5 @@
-use std::collections::HashMap;
 use crate::traits::EntangleMap;
+use std::collections::HashMap;
 
 #[derive(Debug, Clone, PartialEq, Eq, Hash)]
 pub enum SemanticDomain {
@@ -14,7 +14,6 @@ pub struct Coupling {
     strength: f64,
     phase_shift: f64,
 }
-
 
 pub struct SimpleEntangleMap {
     map: HashMap<(SemanticDomain, SemanticDomain), Coupling>,
@@ -31,10 +30,13 @@ impl EntangleMap for SimpleEntangleMap {
     }
 
     fn get_coupling(&self, a: &SemanticDomain, b: &SemanticDomain) -> Coupling {
-        self.map.get(&(a.clone(), b.clone())).cloned().unwrap_or(Coupling {
-            strength: 0.0,
-            phase_shift: 0.0,
-        })
+        self.map
+            .get(&(a.clone(), b.clone()))
+            .cloned()
+            .unwrap_or(Coupling {
+                strength: 0.0,
+                phase_shift: 0.0,
+            })
     }
 
     fn update_coupling(&mut self, a: &SemanticDomain, b: &SemanticDomain, delta: Coupling) {

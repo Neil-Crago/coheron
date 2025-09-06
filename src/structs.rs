@@ -1,24 +1,15 @@
 pub struct SemanticState {
-    coherence: f64,
-    phase: f64,
+    pub coherence: f64,
+    pub phase: f64,
 }
 
 pub struct Observation {
-    signal: f64,
-    noise: f64,
+    pub signal: f64,
+    pub noise: f64,
 }
 
-pub struct Gradient {
-    direction: [f64; 3],
-    magnitude: f64,
-}
-
-pub struct Resonance {
-    amplitude: f64,
-    frequency: f64,
-}
 
 pub struct ControlLaw {
-    torque: f64,
-    alignment: f64,
+    pub torque: f64,
+    pub alignment: f64,
 }

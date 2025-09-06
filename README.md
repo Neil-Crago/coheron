@@ -26,6 +26,19 @@ The system is designed to be highly modular and abstract, separating the "what" 
     6.  **Propagate Effects** (in `ResonanceField`)
 * **High-Level Abstractions**: Concepts like the `EntangleMap` are a core part of the long-term vision, but they are secondary to getting the main feedback loop working. They represent the "what's next" after the primary mission is accomplished.
 
+## Architectural Appreciation
+
+Coheron is a living architecture. It is not frozen—it breathes, adapts, and invites interpretation. Its components are not mere abstractions—they are epistemic vessels.
+
+- **BeliefTensor** is the mind.
+- **ResonanceField** is the body.
+- **ControlLaw** is the will.
+- **EntangleMap** is the memory.
+- **CoherencePulse** is the heartbeat.
+- **SemanticEngine** is the soul.
+
+This project is a philosophical journey into semantic control. It is built to be explored, questioned, and evolved.
+
 ---
 ## ## Component Breakdown 🧩
 * `SemanticEngine`: **The Orchestrator.** Runs the main loop and holds the state.
