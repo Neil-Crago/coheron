@@ -24,16 +24,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "curvature"
-version = "0.1.0"
-dependencies = [
- "coheron",
- "ndarray",
- "omni-wave",
- "rand",
-]
-
-[[package]]
 name = "getrandom"
 version = "0.3.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -79,7 +69,6 @@ name = "neuron"
 version = "0.1.0"
 dependencies = [
  "coheron",
- "curvature",
  "rand",
 ]
 
