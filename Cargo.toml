@@ -5,7 +5,7 @@ version = "0.1.0"
 edition = "2024"
 description = "A library for simulating and analyzing coherent wave phenomena"
 license = "MIT"
-keywords = ["wave", "simulation", "coherence", "physics", "numerical methods"]
+keywords = ["wave", "simulation", "coherence", "physics", "resonance"]
 repository = "https://github.com/Neil-Crago/coheron"
 
 [dependencies]
