@@ -3,6 +3,7 @@ name = "semantic_engine"
 authors = ["Neil Crago"]
 version = "0.1.0"
 edition = "2024"
+description = "A semantic engine example using the coheron library"
 
 [dependencies]
 coheron = "0.1.0" 

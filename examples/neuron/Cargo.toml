@@ -3,7 +3,8 @@ name = "neuron"
 version = "0.1.0"
 authors = ["Neil Crago"]
 edition = "2024"
-description = "A simple neuron model"
+description = "A neuron simulation example using the coheron and curvature libraries"
+keywords = ["neuron", "simulation", "coheron", "curvature", "physics"]
 
 [dependencies]
 coheron = "0.1.0"
