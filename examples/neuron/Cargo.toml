@@ -1,8 +1,11 @@
 [package]
 name = "neuron"
 version = "0.1.0"
+authors = ["Neil Crago"]
 edition = "2024"
+description = "A simple neuron model"
 
 [dependencies]
 coheron = {path = "../../../coheron"}
+curvature = {path = "../../../curvature"}
 rand = "0.9.2"

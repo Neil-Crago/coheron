@@ -1,20 +1,16 @@
-use coheron::traits::{BeliefTensor, EntangleMap, LawSynthEngine, ResonanceField};
-use coheron::entangle::SimpleEntangleMap;
-use coheron::entangle::SemanticDomain;
-use coheron::structs::{Observation, ControlLaw};
-use coheron::beliefs::GaussianBelief;   
-use coheron::sem_eng::SemanticEngine;
+use coheron::traits::{BeliefTensor};
+use curvature::entangle::{SimpleEntangleMap};
+use curvature::sem_eng::SimpleBelief;
+use coheron::beliefs::{Observation};   
+use curvature::sem_eng::{Synth, Field};
+use curvature::resonance::{EntangleMap, LawSynthEngine, ResonanceField, Position};
 
-
-//fn get_mean(belief: &SimpleBelief) -> f64 {
-//    belief.mean
-//}
 
 fn main() {
     let mut belief = SimpleBelief { mean: 0.5, variance: 0.2 };
     let mut field = Field;
     let synth = Synth;
-    let mut position = 0.0;
+    let mut position = Position { x: 0.0, y: 0.0 };
 
     for step in 0..10 {
         let signal = field.observe(&position);
@@ -26,12 +22,13 @@ fn main() {
         let resonance = field.compute_resonance(&position);
         let law = synth.synthesize(&belief, &resonance, &entanglement);
 
-        position += law.torque * 0.1; // move agent
+        position.x += law.torque * 0.1; // move agent
+        position.y += law.alignment * 0.1; // move agent
         field.propagate(&position, &resonance);
 
         println!(
-            "Step {:>2}: Pos {:.2}, Belief {:.2}, Torque {:.2}, Align {:.2}",
-            step, position, belief.mean, law.torque, law.alignment
+            "Step {:>2}: Pos ({:.2}, {:.2}), Belief {:.2}, Torque {:.2}, Align {:.2}",
+            step, position.x, position.y, belief.mean, law.torque, law.alignment
         );
     }
 }

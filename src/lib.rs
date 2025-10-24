@@ -5,7 +5,8 @@ pub mod traits;
   
 
 pub use beliefs::{
-    DirichletBelief, GaussianBelief, KalmanBelief, PolynomialBelief, SemanticBelief,
+    DirichletBelief, GaussianBelief, KalmanBelief, 
+    PolynomialBelief, SemanticBelief, Observation,
 };
 pub use fusion::{BeliefFusion, DirichletFusion, FusionStrategy, GaussianFusion, PolynomialFusion};
 pub use structs::{ControlLaw, SemanticState};
