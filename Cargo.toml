@@ -1,15 +1,16 @@
 [package]
 name = "coheron"
 authors = ["Neil Crago"]
-version = "0.1.0"
+version = "0.1.1"
 edition = "2024"
 description = "A library for simulating and analyzing coherent wave phenomena"
 license = "MIT"
 keywords = ["wave", "simulation", "coherence", "physics", "resonance"]
 repository = "https://github.com/Neil-Crago/coheron"
+documentation = "https://docs.rs/coheron"
 
 [dependencies]
+ndarray = "0.16.1"
 omni-wave = "0.2.1"
-ndarray = "0.15.6"
 rand = "0.9.2"
 
