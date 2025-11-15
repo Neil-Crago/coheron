@@ -1,3 +1,4 @@
+/// Various belief representations and their implementations.
 use crate::traits::BeliefTensor;
 
 #[derive(Debug, Clone)]

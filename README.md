@@ -3,11 +3,15 @@
 An architecture for synthesizing robust, intelligent agents through the unification of Bayesian belief, resonance fields, and control theory.
 
 ---
+
 ## Project Mission & Focus 🎯
+
 The primary goal of **Coheron** is to investigate a novel method for creating "intelligent" control laws and models. This project is a direct implementation of the research into combining Bayesian methods with Quantitative Feedback Theory (QFT).
 
 ---
+
 ## Architectural Philosophy 🏛️
+
 The system is designed to be highly modular and abstract, separating the "what" from the "how". This philosophy is the key to managing complexity.
 
 * **Decoupling via Traits**: The entire architecture is built on a set of abstract traits (`BeliefTensor`, `ResonanceField`, `LawSynthEngine`). This allows any component to be swapped out without breaking the system. The `SemanticEngine` is the generic orchestrator that wires these components together.

@@ -1,4 +1,5 @@
-
+/// Traits defining the behavior of belief tensors and gradient-to-observation conversions.
+/// These traits are implemented by various belief representations.
 pub trait BeliefTensor {
     type State;
     type Observation;

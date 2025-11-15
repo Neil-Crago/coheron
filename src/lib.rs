@@ -1,3 +1,6 @@
+/// Coheron: A Rust crate for coherent sensor fusion and belief representation.
+/// This library provides various belief representations, fusion strategies,
+/// and data structures to facilitate coherent reasoning under uncertainty.
 pub mod beliefs;
 pub mod fusion;
 pub mod structs;

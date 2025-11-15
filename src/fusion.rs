@@ -1,3 +1,4 @@
+/// Fusion strategies for combining multiple beliefs into a single posterior belief.
 use crate::beliefs::{DirichletBelief, GaussianBelief, PolynomialBelief};
 use crate::traits::BeliefTensor;
 
