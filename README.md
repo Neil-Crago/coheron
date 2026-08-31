@@ -1,5 +1,10 @@
 # Coheron
 
+[![Crates.io](https://img.shields.io/crates/v/coheron.svg?style=flat-square)](https://crates.io/crates/coheron)
+[![Docs.rs](https://img.shields.io/docsrs/coheron?style=flat-square)](https://docs.rs/coheron)
+[![License: MIT OR Apache-2.0](https://img.shields.io/badge/license-MIT%20OR%20Apache--2.0-blue?style=flat-square)](https://opensource.org/licenses/MIT)
+[![CI](https://github.com/neil-crago/coheron/actions/workflows/rust.yml/badge.svg)](https://github.com/neil-crago/coheron/actions/workflows/rust.yml)
+
 A small Rust library for belief representations, probabilistic fusion, and semantic control primitives.
 
 ## What is in here
