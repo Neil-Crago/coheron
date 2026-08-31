@@ -1,7 +1,7 @@
 [package]
 name = "coheron"
 authors = ["Neil Crago"]
-version = "0.1.4"
+version = "0.1.5"
 edition = "2024"
 rust-version = "1.85"
 description = "A lightweight library for belief fusion, uncertainty tracking, and semantic control primitives"
