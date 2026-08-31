@@ -1,34 +1,39 @@
-use coheron::traits::{BeliefTensor};
-use curvature::entangle::{SimpleEntangleMap};
-use curvature::sem_eng::SimpleBelief;
-use coheron::beliefs::{Observation};   
-use curvature::sem_eng::{Synth, Field};
-use curvature::resonance::{EntangleMap, LawSynthEngine, ResonanceField, Position};
-
+use coheron::beliefs::GaussianBelief;
+use coheron::fusion::{BeliefFusion, GaussianFusion};
+use coheron::traits::BeliefTensor;
 
 fn main() {
-    let mut belief = SimpleBelief { mean: 0.5, variance: 0.2 };
-    let mut field = Field;
-    let synth = Synth;
-    let mut position = Position { x: 0.0, y: 0.0 };
+    let mut belief = GaussianBelief {
+        mean: 0.5,
+        variance: 0.25,
+        drift: 0.02,
+    };
+
+    let mut accumulated = Vec::new();
 
     for step in 0..10 {
-        let signal = field.observe(&position);
-        let obs = Observation { signal, noise: 0.1 };
-        belief.update(&obs);
-
-
-        let entanglement = SimpleEntangleMap::new(); // or however you instantiate it
-        let resonance = field.compute_resonance(&position);
-        let law = synth.synthesize(&belief, &resonance, &entanglement);
-
-        position.x += law.torque * 0.1; // move agent
-        position.y += law.alignment * 0.1; // move agent
-        field.propagate(&position, &resonance);
+        let observation = belief.observe();
+        belief.update(&observation);
+        accumulated.push(belief.mean());
 
         println!(
-            "Step {:>2}: Pos ({:.2}, {:.2}), Belief {:.2}, Torque {:.2}, Align {:.2}",
-            step, position.x, position.y, belief.mean, law.torque, law.alignment
+            "step {step:>2}: raw={:.4}, mean={:.4}, variance={:.4}",
+            observation.signal,
+            belief.mean,
+            belief.variance
         );
     }
+
+    let fused = GaussianFusion::fuse(&[
+        GaussianBelief { mean: 0.2, variance: 0.5, drift: 0.0 },
+        GaussianBelief { mean: 0.8, variance: 0.2, drift: 0.0 },
+        GaussianBelief { mean: 0.6, variance: 0.3, drift: 0.0 },
+    ]);
+
+    println!(
+        "fused estimate: mean={:.4}, variance={:.4}, history={:?}",
+        fused.mean,
+        fused.variance,
+        accumulated
+    );
 }

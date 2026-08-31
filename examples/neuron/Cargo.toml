@@ -1,12 +1,10 @@
 [package]
 name = "neuron"
-version = "0.1.0"
+version = "0.1.4"
 authors = ["Neil Crago"]
 edition = "2024"
-description = "A neuron simulation example using the coheron and curvature libraries"
-keywords = ["neuron", "simulation", "coheron", "curvature", "physics"]
+description = "A simple neuron-like belief tracking example using the local coheron crate"
+keywords = ["neuron", "simulation", "coheron", "beliefs", "fusion"]
 
 [dependencies]
-coheron = "0.1.0"
-curvature = "0.1.0"
-rand = "0.9.2"
+coheron = { path = "../.." }

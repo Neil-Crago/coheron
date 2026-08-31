@@ -1,47 +1,45 @@
-# Coheron 🧠
+# Coheron
 
-An architecture for synthesizing robust, intelligent agents through the unification of Bayesian belief, resonance fields, and control theory.
+A small Rust library for belief representations, probabilistic fusion, and semantic control primitives.
 
----
+## What is in here
 
-## Project Mission & Focus 🎯
+The core crate currently focuses on a few concrete, testable building blocks:
 
-The primary goal of **Coheron** is to investigate a novel method for creating "intelligent" control laws and models. This project is a direct implementation of the research into combining Bayesian methods with Quantitative Feedback Theory (QFT).
+- `GaussianBelief` for scalar Gaussian estimates with drift and variance updates
+- `KalmanBelief` for a lightweight 1D state-space model
+- `PolynomialBelief` for simple polynomial approximation
+- `DirichletBelief` for categorical concentration parameters
+- `BeliefFusion` and `FusionStrategy` for fusing multiple beliefs into a single posterior
+- `SemanticState` and `ControlLaw` for simple control-oriented state values
 
----
+This is intentionally a small, low-friction toolkit rather than a complete semantic engine framework.
 
-## Architectural Philosophy 🏛️
+## Current status
 
-The system is designed to be highly modular and abstract, separating the "what" from the "how". This philosophy is the key to managing complexity.
+The library still builds on modern Rust, and the core belief/fusion APIs are covered by regression tests. The project had drifted toward aspirational architecture language, but the actual implementation is simpler and more practical than the original README suggested.
 
-* **Decoupling via Traits**: The entire architecture is built on a set of abstract traits (`BeliefTensor`, `ResonanceField`, `LawSynthEngine`). This allows any component to be swapped out without breaking the system. The `SemanticEngine` is the generic orchestrator that wires these components together.
-* **The Central Feedback Loop**: The `SemanticEngine::step()` function defines the project's core process. It is a perception-action loop that represents the agent's "thinking" process. Everything I build must serve this loop.
-    1.  **Observe** (from `BeliefTensor`)
-    2.  **Update Belief** (in `BeliefTensor`)
-    3.  **Compute State** (from `ResonanceField`)
-    4.  **Synthesize Law** (by `LawSynthEngine`)
-    5.  **Act** (update `position`)
-    6.  **Propagate Effects** (in `ResonanceField`)
-* **High-Level Abstractions**: Concepts like the `EntangleMap` are a core part of the long-term vision, but they are secondary to getting the main feedback loop working. They represent the "what's next" after the primary mission is accomplished.
+## Example usage
 
-## Architectural Appreciation
+```rust
+use coheron::beliefs::GaussianBelief;
+use coheron::fusion::{BeliefFusion, GaussianFusion};
 
-Coheron is a living architecture. It is not frozen—it breathes, adapts, and invites interpretation. Its components are not mere abstractions—they are epistemic vessels.
+let beliefs = vec![
+    GaussianBelief { mean: 0.0, variance: 1.0, drift: 0.0 },
+    GaussianBelief { mean: 2.0, variance: 0.25, drift: 0.0 },
+];
 
-- **BeliefTensor** is the mind.
-- **ResonanceField** is the body.
-- **ControlLaw** is the will.
-- **EntangleMap** is the memory.
-- **CoherencePulse** is the heartbeat.
-- **SemanticEngine** is the soul.
+let fused = GaussianFusion::fuse(&beliefs);
+println!("mean = {}, variance = {}", fused.mean, fused.variance);
+```
 
-This project is a philosophical journey into semantic control. It is built to be explored, questioned, and evolved.
+## Modernization notes
 
----
-## ## Component Breakdown 🧩
-* `SemanticEngine`: **The Orchestrator.** Runs the main loop and holds the state.
-* `BeliefTensor`: **The Bayesian Mind.** Manages the agent's probabilistic understanding of the world.
-* `ResonanceField`: **The Environment.** The problem space where the agent exists and acts.
-* `LawSynthEngine`: **The QFT Designer.** The core of the intelligence. Its job is to create a robust `ControlLaw`.
-* `EntangleMap`: **The Cross-Domain Connector.** Models the relationships between different fields of knowledge. (Future Work)
-* `GraphKernel`: **The Field Substrate.** The most likely concrete implementation for the `ResonanceField`.
+- The library is kept intentionally compact and dependency-light.
+- The stale example crates under `examples/` were not part of the active crate surface and still reference older external assumptions.
+- The core library is now validated with real tests instead of relying on the build alone.
+
+## Author
+
+Neil Crago

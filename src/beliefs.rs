@@ -178,12 +178,15 @@ impl BeliefTensor for DirichletBelief {
     }
 
     fn mean(&self) -> f64 {
-        let sum: f64 = self.alpha.iter().sum();
         if self.alpha.is_empty() {
-            0.0
-        } else {
-            self.alpha.iter().map(|a| a / sum).sum::<f64>() / self.alpha.len() as f64
+            return 0.0;
         }
+
+        // A Dirichlet belief is vector-valued. For a single scalar summary,
+        // surface the strongest posterior mass instead of the always-constant
+        // mean of the normalized probabilities, which would collapse to 1 / n.
+        let total: f64 = self.alpha.iter().sum();
+        self.alpha.iter().map(|alpha| alpha / total).fold(0.0, f64::max)
     }
 }
 
@@ -224,5 +227,31 @@ impl<T: Clone + std::fmt::Debug> BeliefTensor for SemanticBelief<T> {
 
     fn mean(&self) -> f64 {
         self.confidence
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::fusion::BeliefFusion;
+    use crate::GaussianFusion;
+
+    #[test]
+    fn dirichlet_mean_tracks_the_most_likely_category() {
+        let belief = DirichletBelief { alpha: vec![10.0, 1.0, 1.0] };
+
+        assert!((belief.mean() - 0.8333333333333334).abs() < 1e-12);
+    }
+
+    #[test]
+    fn gaussian_fusion_combines_estimates_by_inverse_variance() {
+        let beliefs = vec![
+            GaussianBelief { mean: 0.0, variance: 1.0, drift: 0.0 },
+            GaussianBelief { mean: 2.0, variance: 0.25, drift: 0.0 },
+        ];
+
+        let fused = GaussianFusion::fuse(&beliefs);
+        assert!((fused.mean - 1.6).abs() < 1e-12);
+        assert!((fused.variance - 0.2).abs() < 1e-12);
     }
 }

@@ -1,16 +1,16 @@
 [package]
 name = "coheron"
 authors = ["Neil Crago"]
-version = "0.1.2"
+version = "0.1.4"
 edition = "2024"
-description = "A library for simulating and analyzing coherent wave phenomena"
+rust-version = "1.85"
+description = "A lightweight library for belief fusion, uncertainty tracking, and semantic control primitives"
 license = "MIT"
-keywords = ["wave", "simulation", "coherence", "physics", "resonance"]
+readme = "README.md"
+keywords = ["beliefs", "fusion", "uncertainty", "control", "sensor-fusion"]
 repository = "https://github.com/Neil-Crago/coheron"
 documentation = "https://docs.rs/coheron"
 
 [dependencies]
-ndarray = "0.16.1"
-omni-wave = "0.2.1"
 rand = "0.9.2"
 
